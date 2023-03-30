@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/25/solid";
 import Logo from "@/assets/Logo.png";
+import Link from "./Link";
+import { SelectedPage } from "@/shared/types";
 
-type Props = {};
+type Props = {
+  selectedPage: SelectedPage;
+  setSelectedPage: (value: SelectedPage) => void;
+};
 
-export default function Navbar({}: Props) {
+export default function Navbar({ selectedPage, setSelectedPage }: Props) {
   const flexBetween = "flex items-center justify-between";
 
   return (
@@ -15,23 +20,29 @@ export default function Navbar({}: Props) {
             <img src={Logo} alt="evogym logo" />
             <div className={`${flexBetween} w-full`}>
               <div className={`${flexBetween} gap-8 text-sm`}>
-                <a href="#">
-                  <li>Home</li>
-                </a>
-                <a href="#">
-                  <li>Benefits</li>
-                </a>
-                <a href="#">
-                  <li>Our Classes</li>
-                </a>
-                <a href="#">
-                  <li>Contact Us</li>
-                </a>
+                <Link
+                  page="Home"
+                  selectedPage={selectedPage}
+                  setSelectedPage={setSelectedPage}
+                />
+                <Link
+                  page="Benefits"
+                  selectedPage={selectedPage}
+                  setSelectedPage={setSelectedPage}
+                />
+                <Link
+                  page="Our Classes"
+                  selectedPage={selectedPage}
+                  setSelectedPage={setSelectedPage}
+                />
+                <Link
+                  page="Contact Us"
+                  selectedPage={selectedPage}
+                  setSelectedPage={setSelectedPage}
+                />
               </div>
               <div className={`${flexBetween} gap-8`}>
-                <a href="#">
-                  <li>Sign In</li>
-                </a>
+                <p>Sign In</p>
                 <button>Become a Member</button>
               </div>
             </div>
