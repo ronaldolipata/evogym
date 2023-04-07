@@ -1,6 +1,11 @@
+import Navbar from "@/scenes/navbar";
+import Home from "@/scenes/home";
+import OurClasses from "@/scenes/ourClasses";
+import Benefits from "@/scenes/benefits";
+import ContactUs from "@/scenes/contactUs";
+import Footer from "@/scenes/footer";
 import { useEffect, useState } from "react";
-import Navbar from "@/components/Navbar";
-import { SelectedPage } from "./shared/types";
+import { SelectedPage } from "@/shared/types";
 
 function App() {
   const [selectedPage, setSelectedPage] = useState<SelectedPage>(
@@ -9,20 +14,15 @@ function App() {
   const [isTopOfPage, setIsTopOfPage] = useState<boolean>(true);
 
   useEffect(() => {
-    function handleScroll() {
-      if (window.scrollY !== 0) {
-        setIsTopOfPage(false);
+    const handleScroll = () => {
+      if (window.scrollY === 0) {
+        setIsTopOfPage(true);
+        setSelectedPage(SelectedPage.Home);
       }
-
-      setIsTopOfPage(true);
-      setSelectedPage(SelectedPage.Home);
-    }
-
-    window.addEventListener("srcoll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
+      if (window.scrollY !== 0) setIsTopOfPage(false);
     };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -32,6 +32,11 @@ function App() {
         selectedPage={selectedPage}
         setSelectedPage={setSelectedPage}
       />
+      <Home setSelectedPage={setSelectedPage} />
+      <Benefits setSelectedPage={setSelectedPage} />
+      <OurClasses setSelectedPage={setSelectedPage} />
+      <ContactUs setSelectedPage={setSelectedPage} />
+      <Footer />
     </div>
   );
 }
